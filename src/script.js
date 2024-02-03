@@ -1,7 +1,8 @@
         // set theme
-        const toggle = () => {
+        const modeChange = () => {
             document.documentElement.classList.toggle("dark")
-            document.documentElement.classList.toggle("light")            
+            document.documentElement.classList.toggle("light")
+
         }
 
         // view
@@ -26,19 +27,7 @@
                 document.querySelectorAll('svg')[1].classList.add('hidden')                    
             }
         }
-        // Add dark mode toggle functionality
-        document.addEventListener('DOMContentLoaded', () => {
-            const darkModeButton = document.querySelector('#darkModeButton');
 
-            if (darkModeButton) {
-                darkModeButton.addEventListener('click', toggleDarkMode);
-            }
-        });
-
-        const toggleDarkMode = () => {
-            toggle();
-            // You can add additional logic here if needed
-        };
         function tmp(){
             alert('Test')
         }
