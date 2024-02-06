@@ -21,14 +21,14 @@
                 </svg>
             </button>
             <div class="absolute top-[56px] left-0 bg-blue-300 p-3 hidden w-full" id="ddMenu">
-                <button class="block py-1 px-2" onclick="setView('Tailwind Example')">Home</button>
-                <button class="block py-1 px-2" onclick="setView('About Tailwind')">About</button>
-                <button class="block py-1 px-2" onclick="setView('Contact')">Contact</button>
+                <button class="block py-1 px-2" onclick="setView('Home', 'tab-Home')">Home</button>
+                <button class="block py-1 px-2" onclick="setView('About Tailwind', 'tab-About')">About</button>
+                <button class="block py-1 px-2" onclick="setView('Contact', 'tab-Contact')">Contact</button>
             </div>
             <div class="justify-start gap-4 hidden sm:flex">
-                <button onclick="setView('Tailwind Example')">Home</button>
-                <button onclick="setView('About Tailwind')">About</button>
-                <button onclick="setView('Contact')">Contact</button>
+                <button onclick="setView('Home', 'tab-Home')">Home</button>
+                <button onclick="setView('About Tailwind', 'tab-About')">About</button>
+                <button onclick="setView('Contact', 'tab-Contact')">Contact</button>
             </div>
             <div>
                 <button class="dark:hidden block" onclick="modeChange()">Dark</button>
@@ -36,7 +36,16 @@
             </div>
         </div>
         <div class="py-4">
-            <h1 class="text-3xl border-b-[10px] border-blue-300">Tailwind Example</h1>
+            <h1 class="text-3xl border-b-[10px] border-blue-300">Home</h1>
+        </div>
+        <div id="tab-Home" class="tab-content">
+            <p>HomeContent</p>
+        </div>
+        <div id="tab-About" class="tab-content hidden">
+            <p>AboutContent</p>
+        </div>
+        <div id="tab-Contact" class="tab-content hidden">
+            <p>ContactContent</p>
         </div>
         <div class="justify-start gap-4 hidden sm:flex">
             <button onclick="tmp()">TEST</button>
