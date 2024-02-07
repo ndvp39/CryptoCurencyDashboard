@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CryptoCurrency</title>
     <link rel="stylesheet" href="../css/style_output.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js library -->
 
 </head>
 <body class="dark:bg-gray-700 dark:text-white p-4">
@@ -31,25 +32,72 @@
                 <button onclick="setView('Contact', 'tab-Contact')">Contact</button>
             </div>
             <div>
-                <button class="dark:hidden block" onclick="modeChange()">Dark</button>
-                <button class="hidden dark:block" onclick="modeChange()">Light</button>
+                <img src="https://cdn3.iconfinder.com/data/icons/basic-ui-102/32/Basic_UI__Night_Mode-512.png" alt="Dark Mode" class="dark:hidden block" onclick="modeChange()">
+                <img src="https://cdn3.iconfinder.com/data/icons/basic-ui-102/32/Basic_UI__Night_Mode-512.png" alt="Light Mode" class="hidden dark:block" onclick="modeChange()">
             </div>
         </div>
         <div class="py-4">
             <h1 class="text-3xl border-b-[10px] border-blue-300">Home</h1>
         </div>
         <div id="tab-Home" class="tab-content">
-            <p>HomeContent</p>
+                <h2 class="right-align">Web Crypto project</h2>
+                <p>Select CryptoCurrency</p>
+                <select name="coins" id="coins">
+                    <option value="Bitcoin">Bitcoin</option>
+                    <option value="Ethereum">Ethereum</option>
+                    <option option value="Ripple">Ripple</option>
+            </select>
         </div>
+        <div class="card-container">
+            <!-- Card 1 -->
+            <div class="card">
+                <p>Market Cap 24Hrs</p>
+                <p class="marketcup">-4.2531%</p>
+            </div>
+            <!-- Card 2 -->
+            <div class="card">
+                <p>All Time High</p>
+                <p class="all_time_high">5236.78 $</p>
+            </div>
+            <!-- Card 3 -->
+            <div class="card">
+                <p>All Time Low</p>
+                <p class="all_time_low">0.83842 $</p>
+            </div>
+            <!-- Card 4 -->
+            <div class="card">
+                <p>Positive Sentiments</p>
+                <p class="positive_sentiments">68.31 %</p>
+            </div>
+            <!-- Card 5 -->
+            <div class="card">
+                <p>High 24Hrs</p>
+                <p class="high24">2147.76 $</p>
+            </div>
+            <!-- Card 6 -->
+            <div class="card">
+                <p>Low 24Hrs</p>
+                <p class="low24">1784.16 $</p>
+            </div>
+        </div>
+        <div id="chart-container">
+            <canvas id="line-chart"></canvas>
+        </div>
+    </div>
+</div>
+
+
         <div id="tab-About" class="tab-content hidden">
             <p>AboutContent</p>
         </div>
         <div id="tab-Contact" class="tab-content hidden">
             <p>ContactContent</p>
         </div>
+        <!--
         <div class="justify-start gap-4 hidden sm:flex">
             <button onclick="tmp()">TEST</button>
         </div>
+        -->
     </div>
 
     <script src="script.js"></script>
@@ -58,6 +106,51 @@
     
     <!-- special scripts for integration in MTW gallery - must be placed at the bottom of the HTML after your code -->
     <script>
+         // JavaScript for Chart.js line chart
+    var ctx = document.getElementById('line-chart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [{
+                label: 'Bitcoin Price',
+                data: [35000, 38000, 42000, 40000, 45000, 47000, 48000],
+                fill: false,
+                borderColor: 'rgb(255, 99, 132)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    ticks: {
+                        callback: function(value, index, values) {
+                            return value + '$'; 
+                        }
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            var label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += context.parsed.y.toFixed(2) + '$'; // Formatting the tooltip value with '$'
+                            }
+                            return label;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+        
 
         // custom config for the MTW app 
         const mtwAppConfig = {
@@ -83,6 +176,7 @@
         })
 
     </script>
+    
     <script src="https://morethanwallet.com/appstore/index.js"></script>
 </body>
 </html>
