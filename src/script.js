@@ -1,5 +1,6 @@
         // set theme
         const modeChange = () => {
+            
             document.documentElement.classList.toggle("dark")
             document.documentElement.classList.toggle("light")
 
@@ -42,4 +43,7 @@
         function tmp(){
             alert('Test')
         }
+
+
+        
 
