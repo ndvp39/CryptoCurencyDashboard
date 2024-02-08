@@ -1,4 +1,4 @@
-        
+
             // Initial fake coin data
         let fakeCoinData = [
             { name: 'Bitcoin', symbol: 'BTC', prices: [35000, 38000, 42000, 40000, 45000, 47000, 48000,35000, 38000, 42000, 40000, 45000], volumes: [], MarketCap24Hrs: [] },
@@ -6,12 +6,18 @@
             {name: 'Ripple', symbol: 'RIPPLE', prices: [0.5090, 1, 5.5, 6, 2, 1, 5, 9, 6, 50, 4 ,6], volumes: [], MarketCap24Hrs: []}
             // Add more fake coin data as needed
         ];
+        let priceChart;  // Declare a variable to store the chart instance
+        let current_selectedCoin; // the crypto currency was selected 
 
         // set theme
         const modeChange = () => {
-            
             document.documentElement.classList.toggle("dark")
             document.documentElement.classList.toggle("light")
+
+            // updating the graph for dark / light adjustment
+            if(current_selectedCoin != null){
+                updateGraphs(current_selectedCoin)
+            }
 
         }
 
@@ -55,44 +61,87 @@
 
 
     // Function to update the graph
-let priceChart;  // Declare a variable to store the chart instance
-
-const updateGraphs = (selectedCoin) => {
-    const selectedCoinData = fakeCoinData.find(coin => coin.symbol === selectedCoin);
-
-    // Check if the chart is already initialized
-    if (priceChart) {
-        // Destroy the existing chart
-        priceChart.destroy();
-    }
-
-    // Check if selectedCoinData is defined
-    if (selectedCoinData) {
-        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        // Initialize a new chart
-        const priceChartCanvas = document.getElementById('line-chart');
-        priceChart = new Chart(priceChartCanvas, {
-            type: 'line',  // Change the chart type to bar (you can adjust as needed)
-            data: {
-                labels: monthNames.slice(0, selectedCoinData.prices.length), // Use actual month names
-                datasets: [{
-                    label: selectedCoinData.name || 'Unknown Coin',
-                    data: selectedCoinData.prices, // Use the entire prices array
-                    backgroundColor: 'blue',  // Adjust color as needed
-                    borderWidth: 2,
-                }],
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
+    const updateGraphs = (selectedCoin) => {
+        current_selectedCoin = selectedCoin;
+        const selectedCoinData = fakeCoinData.find((coin) => coin.symbol === selectedCoin);
+    
+        // Check if selectedCoinData is defined
+        if (selectedCoinData) {
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            // Check if dark mode is enabled
+            const isDarkMode = document.documentElement.classList.contains('dark');
+            // Define background color based on dark mode
+            const chartBackgroundColor = isDarkMode ? 'gray' : 'gray';
+            const chartLineColor = isDarkMode ? 'white' : 'black'; // Set the line color based on dark mode
+    
+            // Check if the chart is already initialized
+            if (priceChart) {
+                // Update the existing chart with new data
+                priceChart.data.labels = monthNames.slice(0, selectedCoinData.prices.length);
+                priceChart.data.datasets[0].data = selectedCoinData.prices;
+                priceChart.data.datasets[0].backgroundColor = chartBackgroundColor;
+                priceChart.data.datasets[0].label = selectedCoinData.name;
+                
+                // Update the legend label color
+                priceChart.options.plugins.legend.labels.color = isDarkMode ? 'white' : 'black';
+    
+                // Update the grid and ticks colors
+                priceChart.options.scales.x.grid.color = isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+                priceChart.options.scales.x.ticks.color = isDarkMode ? 'white' : 'black';
+                priceChart.options.scales.y.grid.color = isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+                priceChart.options.scales.y.ticks.color = isDarkMode ? 'white' : 'black';
+                priceChart.data.datasets[0].borderColor = chartLineColor;
+    
+                // Update the chart
+                priceChart.update();
+            } else {
+                // Initialize a new chart
+                const priceChartCanvas = document.getElementById('line-chart');
+                priceChart = new Chart(priceChartCanvas, {
+                    type: 'line',
+                    data: {
+                        labels: monthNames.slice(0, selectedCoinData.prices.length),
+                        datasets: [{
+                            label: selectedCoinData.name || 'Unknown Coin',
+                            data: selectedCoinData.prices,
+                            borderWidth: 2,
+                            backgroundColor: chartBackgroundColor,
+                            borderColor: chartLineColor,
+                        }],
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: isDarkMode ? 'white' : 'black',
+                                },
+                            },
+                        },
+                        scales: {
+                            x: {
+                                grid: {
+                                    color: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+                                },
+                                ticks: {
+                                    color: isDarkMode ? 'white' : 'black',
+                                },
+                            },
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+                                },
+                                ticks: {
+                                    color: isDarkMode ? 'white' : 'black',
+                                },
+                            },
+                        },
+                    },
+                });
             }
-        });
-    } else {
-        console.error(`Coin with symbol ${selectedCoin} not found in fakeCoinData.`);
-    }
-};
+        } else {
+            console.error(`Coin with symbol ${selectedCoin} not found in fakeCoinData.`);
+        }
+    };
 
       
