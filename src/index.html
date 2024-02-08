@@ -44,7 +44,7 @@
         <div id="tab-Home" class="tab-content">
                 <h2 class="right-align">Web Crypto project</h2>
                 <p>Select CryptoCurrency</p>
-                <select class = "dark:bg-blue-500" name="coins" id="coin sellector" onchange="updateGraphs(this.value)">
+                <select class="dark:bg-gray-700" id="coinsellector" onchange="updateGraphs(this.value)">
                     <option value="BTC">Bitcoin</option>
                     <option value="ETH">Ethereum</option>
                     <option value="RIPPLE">Ripple</option>
@@ -81,9 +81,9 @@
                     <p class="low24">1784.16 $</p>
                 </div>
             </div>
-            <div id="chart-container">
-                <canvas id="line-chart"></canvas>
-            </div>
+            <div id="chart-container" class="bg-white p-6 rounded-lg shadow-md">
+                <canvas id="line-chart" class="w-full"></canvas>
+            </div>        
         </div>
         </div>
         
@@ -179,6 +179,7 @@
     
     <!-- special scripts for integration in MTW gallery - must be placed at the bottom of the HTML after your code -->
     <script>
+        updateGraphs("BTC") // start the web with bitcoin
         // custom config for the MTW app 
         const mtwAppConfig = {
             border: true // app border in the MTW page                    
