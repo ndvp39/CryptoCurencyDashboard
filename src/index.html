@@ -24,12 +24,14 @@
             <div class="absolute top-[56px] left-0 bg-blue-300 p-3 hidden w-full" id="ddMenu">
                 <button class="block py-1 px-2" onclick="setView('Home', 'tab-Home')">Home</button>
                 <button class="block py-1 px-2" onclick="setView('About Tailwind', 'tab-About')">About</button>
-                <button class="block py-1 px-2" onclick="setView('Contact', 'tab-Contact')">Contact</button>
+                <button class="block py-1 px-2" onclick="setView('Contact Us', 'tab-Contact')">Contact</button>
             </div>
             <div class="justify-start gap-4 hidden sm:flex">
                 <button onclick="setView('Home', 'tab-Home')">Home</button>
-                <button onclick="setView('About Tailwind', 'tab-About')">About</button>
+                <button onclick="setView('About B1', 'tab-About')">About</button>
                 <button onclick="setView('Contact', 'tab-Contact')">Contact</button>
+                <button onclick="setView('News', 'tab-News')">News</button>
+                <button onclick="setView('FAQ', 'tab-FAQ')">FAQ</button>
             </div>
             <div>
                 <img src="https://cdn3.iconfinder.com/data/icons/basic-ui-102/32/Basic_UI__Night_Mode-512.png" alt="Dark Mode" class="dark:hidden block" onclick="modeChange()">
@@ -42,7 +44,6 @@
         <div id="tab-Home" class="tab-content">
                 <h2 class="right-align">Web Crypto project</h2>
                 <p>Select CryptoCurrency</p>
-
                 <select class="dark:bg-gray-700" id="coinsellector" onchange="updateGraphs(this.value)">
                     <option value="BTC">Bitcoin</option>
                     <option value="ETH">Ethereum</option>
@@ -89,18 +90,88 @@
 </div>
 
 
-        <div id="tab-About" class="tab-content hidden">
-            <p>AboutContent</p>
+<div id="tab-About" class="tab-content hidden">
+    <p>Welcome to B1, your trusted source for comprehensive cryptocurrency insights. At B1, we are committed to providing you with a cutting-edge Cryptocurrency Dashboard that empowers you with real-time and historical data of various cryptocurrencies.</p>
+
+    <p>Our mission is to simplify the complexities of the cryptocurrency market and offer you a user-friendly platform.</p>
+    <h2>Key Features:</h2>
+    <ul>
+        <li>Real-time Price Tracking: Stay updated with live cryptocurrency prices across the market.</li>
+        <li>Daily Changes: Monitor daily fluctuations and trends in the cryptocurrency market.</li>
+        <li>Interactive Charts: Explore detailed and interactive charts for in-depth analysis.</li>
+        <li>Cryptocurrency Profiles: Dive into comprehensive profiles for a closer look at each digital asset.</li>
+    </ul>
+
+    <p>Experience the power of information with B1's Cryptocurrency Dashboard.</p>
+    <p> Join us on the journey of navigating the dynamic world of cryptocurrencies with confidence and ease.</p>
+
+    <h2>Our Team:</h2>
+    <ul>
+        <li>Alon</li>
+        <li>Itamar</li>
+        <li>Tomer</li>
+        <li>Nadav</li>
+    </ul>
+</div>
+
+<div id="tab-Contact" class="tab-content hidden">
+    <p>Have questions or feedback? We'd love to hear from you!</p>
+
+    <div class="contact-details">
+        <p><strong>Email:</strong> info@b1_crypto.com</p>
+        <p><strong>Phone:</strong> +1 (555) 123-4567</p>
+    </div>
+
+    <div class="contact-form">
+        <h2>Send us a Message</h2>
+        <form action="#" method="post">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Your Message:</label>
+            <textarea id="message" name="message" rows="3" required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+</div>
+
+<div id="tab-FAQ" class="tab-content hidden text-center">
+    <h2 class="text-2xl font-bold mb-4">Frequently Asked Questions</h2>
+    <p class="mb-8">Find answers to common questions about our products and services.</p>
+
+    <div class="faq-list">
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+            <h3 class="text-xl font-semibold"><strong>What services do you offer?</strong></h3>
+            <p>We provide a range of services including real-time and historical data of various cryptocurrencies, News and more.</p>
         </div>
-        <div id="tab-Contact" class="tab-content hidden">
-            <p>ContactContent</p>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+            <h4 class="text-xl font-semibold"><strong>can I contact customer support?</strong></h4>
+            <p>You can reach our customer support team by sending us message. see more at "Contact".</p>
         </div>
+
+        <!-- Add more FAQs as needed -->
+
+    </div>
+</div>
+
+
+
+<div id="tab-News" class="tab-content hidden">
+    <h2>Get the latest news HERE</h2>
+</div>
+
         <!--
         <div class="justify-start gap-4 hidden sm:flex">
             <button onclick="tmp()">TEST</button>
         </div>
         -->
-    </div>
 
     <script src="script.js"></script>
     
