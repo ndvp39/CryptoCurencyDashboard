@@ -68,7 +68,7 @@ const updateGraphs = (selectedCoin) => {
     if (selectedCoinData) {
         const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         // Check if dark mode is enabled
-        const isDarkMode = document.documentElement.classList.contains('dark');
+        let isDarkMode = document.documentElement.classList.contains('dark');
         // Define background color based on dark mode
         const chartBackgroundColor = isDarkMode ? 'gray' : 'gray';
         const chartLineColor = isDarkMode ? 'white' : 'black'; // Set the line color based on dark mode
@@ -105,33 +105,33 @@ const updateGraphs = (selectedCoin) => {
                         data: selectedCoinData.prices,
                         borderWidth: 2,
                         backgroundColor: chartBackgroundColor,
-                        borderColor: chartLineColor,
+                        borderColor: 'white',
                     }],
                 },
                 options: {
                     plugins: {
                         legend: {
                             labels: {
-                                color: isDarkMode ? 'white' : 'black',
+                                color: 'white',
                             },
                         },
                     },
                     scales: {
                         x: {
                             grid: {
-                                color: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+                                color: 'rgba(255, 255, 255, 0.1)',
                             },
                             ticks: {
-                                color: isDarkMode ? 'white' : 'black',
+                                color: 'white',
                             },
                         },
                         y: {
                             beginAtZero: true,
                             grid: {
-                                color: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+                                color: 'rgba(255, 255, 255, 0.1)',
                             },
                             ticks: {
-                                color: isDarkMode ? 'white' : 'black',
+                                color: 'white',
                             },
                         },
                     },

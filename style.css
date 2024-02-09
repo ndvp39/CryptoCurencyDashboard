@@ -1,3 +1,130 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+/*
+Add the correct display in Chrome and Safari.
+*/
+
+summary {
+  display: list-item;
+}
+
+
+@media (min-width: 640px) {
+  .sm\:flex {
+    display: flex;
+  }
+
+  .sm\:hidden {
+    display: none;
+  }
+}
+
+
+#coins {
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 200px;
+  background-color: transparent;
+}
+
+#coins option {
+  background-color: transparent;
+  color: #333;
+  padding: 8px;
+  
+}
+
+#coins option:checked {
+  background-color: transparent;
+  font-weight: bolder;
+}
+
+h2{
+  font-size: larger;
+  font-weight: bolder;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 20px; /* Gap between cards */
+  margin-top: 20px; /* Margin top for spacing */
+  border: #050505;
+  height: 200px;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.card {
+  background-color: transparent; 
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+} 
+
+#chart-container {
+  width: 100%; /* Make the chart container full width of its parent */
+  margin-top: 20px; /* Adjust margin as needed */
+}
+
+img{
+  width: 30px;
+  height: 30px;
+}
+
+.low24{
+  color:rgb(209, 79, 79);
+}
+
+.high24{
+  color:rgb(109, 158, 34);
+}
+
+.positive_sentiments{
+  color:rgb(20, 145, 145);
+  
+}
+
+.all_time_low{
+  color:rgb(20, 145, 145);
+}
+
+.all_time_high{
+  color:rgb(20, 145, 145);
+}
+
+.marketcup{
+  color:rgb(20, 145, 145);
+}
+
+#coinsellector {
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: transparent;
+}
+
+#coinsellector option {
+  background-color: transparent;
+  color: #333;
+  padding: 8px;
+}
+
+#coinsellector option:checked {
+  background-color: transparent;
+  font-weight: bolder;
+}
+
+#ddMenu {
+  z-index: 10;
+}
+
+#cards {
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+}
+
+#cards>.card {
+  flex-basis: calc(50% - 1rem);
+}
