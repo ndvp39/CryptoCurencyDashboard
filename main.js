@@ -68,7 +68,7 @@ const updateGraphs = (selectedCoin) => {
     if (selectedCoinData) {
         const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         // Check if dark mode is enabled
-        let isDarkMode = document.documentElement.classList.contains('dark');
+        const isDarkMode = document.documentElement.classList.contains('dark');
         // Define background color based on dark mode
         const chartBackgroundColor = isDarkMode ? 'gray' : 'gray';
         const chartLineColor = isDarkMode ? 'white' : 'black'; // Set the line color based on dark mode
