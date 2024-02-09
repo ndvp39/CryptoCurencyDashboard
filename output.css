@@ -573,6 +573,10 @@ video {
   display: flex;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .hidden {
   display: none;
 }
@@ -749,6 +753,7 @@ img{
 
 .positive_sentiments{
   color:rgb(20, 145, 145);
+  
 }
 
 .all_time_low{
@@ -761,4 +766,36 @@ img{
 
 .marketcup{
   color:rgb(20, 145, 145);
+}
+
+#coinsellector {
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: transparent;
+}
+
+#coinsellector option {
+  background-color: transparent;
+  color: #333;
+  padding: 8px;
+}
+
+#coinsellector option:checked {
+  background-color: transparent;
+  font-weight: bolder;
+}
+
+#ddMenu {
+  z-index: 10;
+}
+
+#cards {
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+}
+
+#cards>.card {
+  flex-basis: calc(50% - 1rem);
 }
