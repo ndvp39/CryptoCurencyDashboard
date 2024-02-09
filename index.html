@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CryptoCurrency</title>
     <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js library -->
 
 </head>
@@ -37,7 +38,7 @@
             <button onclick="setView('News', 'tab-News')">News</button>
             <button onclick="setView('FAQ', 'tab-FAQ')">FAQ</button>
         </div>
-        <div>
+        <div class="w-9">
             <img src="https://cdn3.iconfinder.com/data/icons/basic-ui-102/32/Basic_UI__Night_Mode-512.png"
                 alt="Dark Mode" class="dark:hidden block" onclick="modeChange()">
             <img src="https://cdn3.iconfinder.com/data/icons/basic-ui-102/32/Basic_UI__Night_Mode-512.png"
@@ -89,7 +90,7 @@
                         <p class="low24">1784.16 $</p>
                     </div>
                 </div>
-                <div id="chart-container" class="bg-white p-6 rounded-lg shadow-md">
+                <div id="chart-container" class="p-6 rounded-lg shadow-md">
                     <canvas id="line-chart" class="w-full"></canvas>
                 </div>
             </div>
