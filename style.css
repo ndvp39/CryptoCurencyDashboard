@@ -128,3 +128,36 @@ img{
 #cards>.card {
   flex-basis: calc(50% - 1rem);
 }
+
+#tab-About{
+  text-align: center;
+}
+
+#tab-Contact{
+  text-align: center;
+}
+
+.contact-form {
+  width: 300px;
+  margin: 0 auto; 
+  text-align: center; 
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 10px; 
+}
+    
+.contact-form input,
+.contact-form textarea {
+     border: 1px solid black;
+     padding: 1px; /* Add some padding for better appearance */
+     box-sizing: border-box; /* Include padding and border in the element's total width */
+     margin-bottom: 5px;
+     
+}
+
+.contact-form button {
+  width: calc(100% - 12px); /* Make the button take up full width */
+  margin: 0 auto; /* Center the button horizontally */
+}
