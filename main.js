@@ -31,6 +31,10 @@
 
     // view
     const setView = (v, tabId) => {
+
+        console.log('setView called with:', v, tabId);
+
+
         document.querySelector('h1').innerText = v
         var randomColor = Math.floor(Math.random()*16777215).toString(16)
         document.querySelector('h1').style.borderBottom = `10px solid #${randomColor}`
@@ -40,10 +44,10 @@
         Array.from(tabContents).forEach((el) => {
             el.classList.add('hidden');
         })
-        document.getElementById(tabId).classList.remove('hidden');
-
-
         
+        document.getElementById(tabId).classList.remove('hidden');
+        
+        console.log('ClassList after removing "hidden":', document.getElementById(tabId).classList);
 
         toggleMenu(true)
     }
@@ -70,6 +74,7 @@
     const fetchData = async () => {
         try {
             createTabs();
+            createHomeScreen();
         } catch (e) {
           console.error(e)
         }
@@ -84,18 +89,107 @@
 
         const buttons = tabNames.map((tabName, index) => createTabButton(tabNames, tabIds[index]));
         container.append(buttons);
-        
-
 
     }
 
     const createTabButton = (tab_name, tab_id) => {
-        const tab = $("<button>").addClass("block py-1 px-2").text(tab_name).attr("id", tab_id).click(() => {
+        return $("<button>").addClass("block py-1 px-2").text(tab_name).attr("id", tab_id).click(() => {
             setView(tab_name, tab_id)
           });
     }
     
 
+
+    
+    const createHomeScreen = () => {
+
+        let main_div = $("<div>").addClass("py-4 p-4");
+
+        let tab_title = $("<h1>").addClass("text-3xl border-b-[10px] border-blue-300").text("Home");
+
+        main_div.append(tab_title)
+
+        main_div.appendTo("body");
+
+
+        let container = $("#tab-Home").addClass("tab-content max-w-[1000px] w-full mx-auto relative");
+        container.empty();
+        main_div.append(container)
+
+        let title = $("<h2>").addClass("center-align").text("Web Crypto project");
+        container.append(title);
+
+        let text = $("<p>").text("Select CryptoCurrency");
+        container.append(text);
+
+        let coins_select = $("<select>").addClass("dark:bg-gray-700 w-200").attr("id", "coinsellector").change(() => {
+            updateGraphs(this.value)
+        });
+
+        $.each(fakeCoinData, function(index, coin) {
+            let option_to_select = $("<option>").text(coin.name).val(coin.symbol);
+            coins_select.append(option_to_select);
+        });
+        container.append(coins_select);
+
+   
+        let cards = $("<div>").addClass("flex flex-wrap gap-4").attr("id", "cards");
+        container.append(cards);
+
+        let card1 = $("<div>").addClass("card");
+        let card1_content_title = $("<p>").text("All Time High");
+        let card1_content = $("<p>").addClass("all_time_high").text("5236.78 $");
+        card1.append(card1_content_title);
+        card1.append(card1_content);
+        cards.append(card1);
+
+        let card2 = $("<div>").addClass("card");
+        let card2_content_title = $("<p>").text("All Time High");
+        let card2_content = $("<p>").addClass("all_time_high").text("5236.78 $");
+        card2.append(card2_content_title);
+        card2.append(card2_content);
+        cards.append(card2);
+
+        let card3 = $("<div>").addClass("card");
+        let card3_content_title = $("<p>").text("All Time High");
+        let card3_content = $("<p>").addClass("all_time_high").text("5236.78 $");
+        card3.append(card3_content_title);
+        card3.append(card3_content);
+        cards.append(card3);
+
+        let card4 = $("<div>").addClass("card");
+        let card4_content_title = $("<p>").text("All Time High");
+        let card4_content = $("<p>").addClass("all_time_high").text("5236.78 $");
+        card4.append(card4_content_title);
+        card4.append(card4_content);
+        cards.append(card4);
+
+        let card5 = $("<div>").addClass("card");
+        let card5_content_title = $("<p>").text("All Time High");
+        let card5_content = $("<p>").addClass("all_time_high").text("5236.78 $");
+        card5.append(card5_content_title);
+        card5.append(card5_content);
+        cards.append(card5);
+
+        let card6 = $("<div>").addClass("card");
+        let card6_content_title = $("<p>").text("All Time High");
+        let card6_content = $("<p>").addClass("all_time_high").text("5236.78 $");
+        card6.append(card6_content_title);
+        card6.append(card6_content);
+        cards.append(card6);
+
+
+
+        let graph = $("<div>").addClass("p-6 rounded-lg shadow-md").attr("id", "chart-container");
+        let chart = $("<canvas>").addClass("w-full").attr("id", "line-chart");
+        graph.append(chart)
+        container.append(graph);
+
+
+        
+
+
+    }
 
 
 
