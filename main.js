@@ -1,10 +1,19 @@
-       // Initial fake coin data
+    $(() => {
+        fetchData()
+    });
+      
+      // Initial fake coin data
        let fakeCoinData = [
         { name: 'Bitcoin', symbol: 'BTC', prices: [35000, 38000, 42000, 40000, 45000, 47000, 48000,35000, 38000, 42000, 40000, 45000], volumes: [], MarketCap24Hrs: [] },
         { name: 'Ethereum', symbol: 'ETH', prices: [35000, 38000, 42000, 6, 45000, 47000, 5, 42000, 6, 45000, 47000 ,8452], volumes: [], MarketCap24Hrs: [] },
         {name: 'Ripple', symbol: 'RIPPLE', prices: [0.5090, 1, 5.5, 6, 2, 1, 5, 9, 6, 50, 4 ,6], volumes: [], MarketCap24Hrs: []}
         // Add more fake coin data as needed
     ];
+
+
+    const tabNames = ['Home', 'About', 'Contact', 'News', 'FAQ'];
+    const tabIds = ['tab-Home', 'tab-About', 'tab-Contact', 'tab-News', 'tab-FAQ'];
+
     let priceChart;  // Declare a variable to store the chart instance
     let current_selectedCoin; // the crypto currency was selected 
 
@@ -57,6 +66,52 @@
     function tmp(){
         alert('Test')
     }
+
+    const fetchData = async () => {
+        try {
+            createTabs();
+        } catch (e) {
+          console.error(e)
+        }
+      };
+
+
+
+    const createTabs = () => {
+        let container = $("#ddMenu");
+        container.empty();
+        container.addClass("absolute top-[56px] left-0 bg-blue-300 p-3 hidden w-full z-10");
+
+        const buttons = tabNames.map((tabName, index) => createTabButton(tabNames, tabIds[index]));
+        container.append(buttons);
+        
+
+
+    }
+
+    const createTabButton = (tab_name, tab_id) => {
+        const tab = $("<button>").addClass("block py-1 px-2").text(tab_name).attr("id", tab_id).click(() => {
+            setView(tab_name, tab_id)
+          });
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Function to update the graph
