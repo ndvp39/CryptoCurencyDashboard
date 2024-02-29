@@ -13,95 +13,18 @@
 
 <body class="dark:bg-gray-700 dark:text-white">
     <div id="root">
-        <div class="p-4">
-            <div class="py-4">
-                <h1 class="text-3xl border-b-[10px] border-blue-300">Home</h1>
-            </div>
-
-            <div id="tab-home"></div>
-
-            <div id="tab-About"></div>
-
-            <div id="tab-Contact"></div>
-
-            <div id="tab-FAQ" class="tab-content hidden text-center">
-                <h2 class="text-2xl font-bold mb-4">Frequently Asked Questions</h2>
-                <p class="mb-8">Find answers to common questions about our products and services.</p>
-
-                <div class="faq-list">
-                    <!-- FAQ 1 -->
-                    <div class="faq-item">
-                        <h3 class="text-xl font-semibold"><strong>What services do you offer?</strong></h3>
-                        <p>We provide a range of services including real-time and historical data of various
-                            cryptocurrencies, News and more.</p>
-                    </div>
-
-                    <!-- FAQ 2 -->
-                    <div class="faq-item">
-                        <h4 class="text-xl font-semibold"><strong>can I contact customer support?</strong></h4>
-                        <p>You can reach our customer support team by sending us message. see more at "Contact".</p>
-                    </div>
-
-                    <!-- Add more FAQs as needed -->
-
-                </div>
-            </div>
-
-
-
-            <div id="tab-News" class="tab-content hidden text-center">
-                <h2 class="text-2xl font-bold mb-4">Get the Latest Crypto News Here</h2>
-                <p class="mb-8">Stay informed with our latest updates and crypto articles.</p>
-
-                <div class="news-list">
-                    <!-- Crypto Article 1 -->
-                    <div class="news-item">
-                        <h3 class="text-xl font-semibold">Cryptocasinos are evolving worryingly fast - how to get to
-                            grips
-                            with them</h3>
-                        <p></p>
-                        <a href="https://theconversation.com/cryptocasinos-are-evolving-worryingly-fast-heres-how-to-get-to-grips-with-them-205039"
-                            class="text-blue-500"><strong>Read More</strong></a>
-                    </div>
-
-                    <!-- Crypto Article 2 -->
-                    <div class="news-item">
-                        <h3 class="text-xl font-semibold">Are NFTs really dead and buried? All signs point to yes</h3>
-                        <p></p>
-                        <a href=" https://theconversation.com/are-nfts-really-dead-and-buried-all-signs-point-to-yes-214145"
-                            class="text-blue-500"><strong>Read More</strong></a>
-                    </div>
-                    <!-- Crypto Article 2 -->
-                    <div class="news-item">
-                        <h3 class="text-xl font-semibold">Bitcoin has shot up 50% since the new year, why new lows are
-                            probably still ahead ?</h3>
-                        <p></p>
-                        <a href="https://theconversation.com/bitcoin-has-shot-up-50-since-the-new-year-but-heres-why-new-lows-are-probably-still-ahead-198682"
-                            class="text-blue-500"><strong>Read More</strong></a>
-                    </div>
-                    <!-- Add more crypto articles as needed -->
-
-                </div>
-            </div>
-
-        </div>
+        <div id = "mainDiv"></div>
     </div>
-
-
-    </div>
-
-
-    <!--
-        <div class="justify-start gap-4 hidden sm:flex">
-            <button onclick="tmp()">TEST</button>
-        </div>
-        -->
 
     <script src="utils.js"></script>
+    <script src="header.js"></script>
     <script src="main.js"></script>
     <script src="home.js"></script>
     <script src="about.js"></script>
     <script src="contact.js"></script>
+    <script src="faq.js"></script>
+    <script src="news.js"></script>
+    
 
     <!-- special scripts for integration in MTW gallery - must be placed at the bottom of the HTML after your code -->
 
@@ -134,7 +57,6 @@
     </script>
 
     <script src="https://morethanwallet.com/appstore/index.js"></script>
-    <script src="header.js"></script>
 </body>
 
 </html>
