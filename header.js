@@ -1,4 +1,4 @@
-const tabs = ["Home", "About", "Contact", "News", "FAQ"];
+const tabs = ["home", "About", "Contact", "News", "FAQ"];
 
 const renderDesktopHeader = () => {
   const desktopMenu = createElement("div", "", [
