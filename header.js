@@ -1,5 +1,20 @@
 const tabs = ["home", "About", "Contact", "News", "FAQ"];
 
+const setUpTabTitle = () => {
+  const tab_title_div = createElement("div", "");
+  tab_title_div.classList = "py-4";
+
+  const tab_title = createElement("h1", "Home", [{name: "id", value: "tab_title"}]);
+  tab_title.classList = "text-3xl border-b-[10px] border-blue-300";
+
+  tab_title_div.appendChild(tab_title);
+
+  const mainDiv = document.querySelector("#mainDiv");
+  mainDiv.prepend(tab_title_div);
+
+
+  }
+
 const renderDesktopHeader = () => {
   const desktopMenu = createElement("div", "", [
     { name: "class", value: "justify-start gap-4 hidden sm:flex" },
@@ -95,6 +110,7 @@ const renderHeader = () => {
   renderMobileHeader();
   renderMenuButton();
   renderToggleButton();
+  setUpTabTitle();
 };
 
 renderHeader();

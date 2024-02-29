@@ -1,3 +1,5 @@
+
+
 // Initial fake coin data
 let fakeCoinData = [
     {
@@ -44,9 +46,9 @@ let fakeCoinData = [
   
   // view
   const setView = (v, tabId) => {
-    document.querySelector("h1").innerText = v;
+    document.querySelector("#tab_title").innerText = v;
     var randomColor = Math.floor(Math.random() * 16777215).toString(16);
-    document.querySelector("h1").style.borderBottom =
+    document.querySelector("#tab_title").style.borderBottom =
       `10px solid #${randomColor}`;
   
     // show only the tab that was clicked
@@ -73,9 +75,6 @@ let fakeCoinData = [
     }
   };
   
-  function tmp() {
-    alert("Test");
-  }
   
   // Function to update the graph
   const updateGraphs = (selectedCoin) => {
@@ -188,3 +187,19 @@ let fakeCoinData = [
       );
     }
   };
+
+  const renderAllTabs = () => {
+
+    const mainDiv = document.querySelector("#mainDiv");
+    mainDiv.classList = "p-4";
+
+    tabs.forEach(tab => {
+      mainDiv.appendChild(createElement("div", "", [{name: "id", value: `tab-${tab}`}]));
+    });
+
+    const root = document.querySelector("#root");
+    root.appendChild(mainDiv);
+
+
+  }
+  renderAllTabs();
