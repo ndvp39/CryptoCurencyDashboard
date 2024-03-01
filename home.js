@@ -141,7 +141,7 @@ const cryptoDataCards = [
         });
 
 
-        //updateGraphs(cryptoOptions[selectedIndex].value);
+        updateGraphs(selectedCoinID);
     };
     cryptoOptions.forEach((coin) => {
       const optionEl = createElement("option", coin.symbol, [
