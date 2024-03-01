@@ -29,20 +29,26 @@ const renderContactForm = () => {
                                                     {name: "name", value: "name"},
                                                     {name: "required"}]);
 
-
+    name_input.style.color = "black";
     const email_title = createElement("label", "Your Email:", [ {name: "for", value: "email"} ]);
     const email_input = createElement("input", "", [ {name: "type", value: "email"},
                                                     {name: "id", value: "email"},
                                                     {name: "name", value: "email"},
                                                     {name: "required"}]);
+    email_input.style.color = "black";
 
     const msg_title = createElement("label", "Your Message:", [ {name: "for", value: "message"} ]);
     const msg_input = createElement("textarea", "", [ {name: "rows", value: "3"},
                                                     {name: "id", value: "message"},
                                                     {name: "name", value: "message"},
                                                     {name: "required"}]);
+    msg_input.style.color = "black";
 
-    const submit_btn = createElement("button", "Send Message", [ {name: "type", value: "submit"} ]);
+    const submit_btn = createElement("button", "Send Message", [
+        { name: "type", value: "submit" },
+        { name: "style", value: "border: 1px solid black;" }
+    ]);
+    submit_btn.classList.add("px-4", "py-2", "rounded");
 
     const tabPage = document.querySelector("#tab-Contact");
     

@@ -10,7 +10,7 @@ const setUpTabTitle = () => {
   tab_title_div.appendChild(tab_title);
 
   const mainDiv = document.querySelector("#mainDiv");
-  mainDiv.prepend(tab_title_div);
+  mainDiv.appendChild(tab_title_div);
 
 
   }
@@ -93,7 +93,18 @@ const renderToggleButton = () => {
   headerEl.appendChild(containerEl);
 };
 
+
+const createRootAndMainDivs = () => {
+  const rootDiv = createElement("div", "", [{name: "id", value: "root"}]);
+  const mainDiv = createElement("div", "", [{name: "id", value: "mainDiv"}]);
+  rootDiv.appendChild(mainDiv);
+  document.body.appendChild(rootDiv);
+}
+
+
 const renderHeader = () => {
+  createRootAndMainDivs();
+
   const headerEl = createElement("div", "", [
     { name: "id", value: "header" },
     {
@@ -104,8 +115,9 @@ const renderHeader = () => {
 
   const containerEl = document.querySelector("#root");
 
-  containerEl.prepend(headerEl);
+  containerEl.appendChild(headerEl);
 
+  
   renderDesktopHeader();
   renderMobileHeader();
   renderMenuButton();
