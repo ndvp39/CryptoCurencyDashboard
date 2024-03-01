@@ -1,36 +1,12 @@
-const cryptoDataCards = [
-    {
-      name: "Market Cap 24Hrs",
-      value: "-4.2531%",
-      class: "marketcup",
-    },
-    {
-      name: "All Time High",
-      value: "5236.78 $",
-      class: "all_time_high",
-    },
-    {
-      name: "All Time Low",
-      value: "0.83842 $",
-      class: "all_time_low",
-    },
-    {
-      name: "Positive Sentiments",
-      value: "68.31 %",
-      class: "positive_sentiments",
-    },
-    {
-      name: "High 24Hrs",
-      value: "2147.76 $",
-      class: "high24",
-    },
-    {
-      name: "Low 24Hrs",
-      value: "1784.16 $",
-      class: "low24",
-    },
-  ];
-  
+
+const apiKey = 'CG-yDnWGRJ82gHZipwJp4oUvnAY';
+const apiUrl = 'https://api.coingecko.com/api/v3';
+
+const data = {};
+let cryptoOptions;
+
+/*
+
   const cryptoOptions = [
     {
       content: "Bitcoin",
@@ -45,6 +21,100 @@ const cryptoDataCards = [
       value: "RIPPLE",
     },
   ];
+
+*/
+
+
+
+$(() => {
+  fetchData();
+});
+
+const fetchData = async () => {
+  try {
+    cryptoOptions = await getCoinsList();
+    renderHomePage();  // load the page when all data above is loaded from the API
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+const makeApiRequest = async (endpoint) => {
+  try {
+    const options = { method: 'GET' };
+    const url = `${apiUrl}/${endpoint}?x_cg_demo_api_key=${apiKey}`;
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+      throw new Error(`API request failed with status: ${response.status}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Error in makeApiRequest:', error);
+    throw error;
+  }
+};
+
+const getCoinsList = async () => { // Make it an async function to use 'await'
+  try {
+    const coinsList = await makeApiRequest('coins/list?include_platform=false');
+    return coinsList.slice(50, 90); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ sort @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+};
+
+const getCoinData = async (id) => { // Make it an async function to use 'await'
+  try {
+    query = "simple/price?ids=" + id + "&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=false&precision=4";
+    
+    const coinData = await makeApiRequest(query);
+    return coinData;
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+};
+
+
+const updateCards = (coin_data, coinID) => {
+
+  const card1 = document.querySelector("#card_0");
+  card1.innerText = coin_data[coinID].usd;
+  const card2 = document.querySelector("#card_1");
+  card2.innerText = coin_data[coinID].usd_market_cap;
+  const card3 = document.querySelector("#card_2");
+  card3.innerText = coin_data[coinID].usd_24h_vol;
+  const card4 = document.querySelector("#card_3");
+  card4.innerText = coin_data[coinID].usd_24h_change;
+
+}
+
+const cryptoDataCards = [
+    {
+      name: "usd",
+      value: "---",
+      class: "usd"
+    },
+    {
+      name: "usd market cap",
+      value: "---",
+      class: "usd_market_cap"
+    },
+    {
+      name: "usd 24h vol",
+      value: "---",
+      class: "usd_24h_vol"
+    },
+    {
+      name: "usd 24h change",
+      value: "---",
+      class: "usd_24h_change"
+    }
+  ];
+  
   
   const renderCryptoSelector = () => {
     const selectEl = createElement("select", "", [
@@ -59,15 +129,34 @@ const cryptoDataCards = [
     ]);
     selectEl.onchange = (event) => {
         let selectedIndex = event.target.options.selectedIndex;
-        updateGraphs(cryptoOptions[selectedIndex].value);
-    };
+        let selectedCoinID = event.target.options[selectedIndex].id;
 
+
+        getCoinData(selectedCoinID)
+        .then(coin_data => {
+          updateCards(coin_data, selectedCoinID);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+
+
+        //updateGraphs(cryptoOptions[selectedIndex].value);
+    };
     cryptoOptions.forEach((coin) => {
-      const optionEl = createElement("option", coin.content, [
+      const optionEl = createElement("option", coin.symbol, [
         {
-          name: "value",
-          value: coin.name,
+          name: "id",
+          value: coin.id
         },
+        {
+          name: "symbol",
+          value: coin.symbol
+        },
+        {
+          name: "name",
+          value: coin.name
+        }
       ]);
   
       selectEl.appendChild(optionEl);
@@ -80,12 +169,12 @@ const cryptoDataCards = [
   };
   
   const renderCryptoDataCards = () => {
-    cryptoDataCards.forEach((card) => {
+    cryptoDataCards.forEach((card, index) => {
       const cardEl = createElement("div", "", [
         {
           name: "class",
           value: "card",
-        },
+        }
       ]);
   
       const nameEl = createElement("p", card.name);
@@ -94,6 +183,10 @@ const cryptoDataCards = [
           name: "class",
           value: card.class,
         },
+        {
+          name: "id",
+          value: "card_" + index,
+        }
       ]);
   
       cardEl.appendChild(nameEl);
@@ -160,5 +253,5 @@ const cryptoDataCards = [
     renderCryptoDataCards();
   };
   
-  renderHomePage();
+  
   

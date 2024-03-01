@@ -72,28 +72,20 @@ img{
   height: 30px;
 }
 
-.low24{
+.usd_24h_change{
   color:rgb(209, 79, 79);
 }
 
-.high24{
+.usd_24h_vol{
   color:rgb(109, 158, 34);
 }
 
-.positive_sentiments{
+.usd{
   color:rgb(20, 145, 145);
   
 }
 
-.all_time_low{
-  color:rgb(20, 145, 145);
-}
-
-.all_time_high{
-  color:rgb(20, 145, 145);
-}
-
-.marketcup{
+.usd_market_cap{
   color:rgb(20, 145, 145);
 }
 
