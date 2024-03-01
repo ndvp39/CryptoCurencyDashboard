@@ -3,8 +3,8 @@
 // Initial fake coin data
 let fakeCoinData = [
     {
-      name: "Bitcoin",
-      symbol: "BTC",
+      name: "2024",
+      symbol: "2024",
       prices: [
         35000, 38000, 42000, 40000, 45000, 47000, 48000, 35000, 38000, 42000,
         40000, 45000,
@@ -13,8 +13,8 @@ let fakeCoinData = [
       MarketCap24Hrs: [],
     },
     {
-      name: "Ethereum",
-      symbol: "ETH",
+      name: "21million",
+      symbol: "21million",
       prices: [
         35000, 38000, 42000, 6, 45000, 47000, 5, 42000, 6, 45000, 47000, 8452,
       ],
@@ -22,8 +22,8 @@ let fakeCoinData = [
       MarketCap24Hrs: [],
     },
     {
-      name: "Ripple",
-      symbol: "RIPPLE",
+      name: "1sol",
+      symbol: "1sol",
       prices: [0.509, 1, 5.5, 6, 2, 1, 5, 9, 6, 50, 4, 6],
       volumes: [],
       MarketCap24Hrs: [],
@@ -77,10 +77,13 @@ let fakeCoinData = [
   
   
   // Function to update the graph
-  const updateGraphs = (selectedCoin) => {
-    current_selectedCoin = selectedCoin;
+  const updateGraphs = (selectedCoinID) => {
+
+    // here to take the data from api and do something insted all the things down X_X
+
+    current_selectedCoin = selectedCoinID;
     const selectedCoinData = fakeCoinData.find(
-      (coin) => coin.symbol === selectedCoin,
+      (coin) => coin.symbol === selectedCoinID,
     );
   
     // Check if selectedCoinData is defined
@@ -183,7 +186,7 @@ let fakeCoinData = [
       }
     } else {
       console.error(
-        `Coin with symbol ${selectedCoin} not found in fakeCoinData.`,
+        `Coin with symbol ${selectedCoinID} not found in fakeCoinData.`,
       );
     }
   };
