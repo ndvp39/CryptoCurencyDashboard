@@ -6,7 +6,8 @@
   
     // updating the graph for dark / light adjustment
     if (current_selectedCoin != null) {
-      updateGraphs(current_selectedCoin);
+      //updateGraphs(current_selectedCoin);
+      getCoinData(current_selectedCoin.id);
     }
   };
   
