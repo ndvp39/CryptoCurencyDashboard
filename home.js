@@ -4,35 +4,45 @@ const apiUrl = 'https://api.coingecko.com/api/v3';
 
 const data = {};
 let cryptoOptions;
-
-/*
-
-  const cryptoOptions = [
-    {
-      content: "Bitcoin",
-      value: "BTC",
-    },
-    {
-      content: "Ethereum",
-      value: "ETH",
-    },
-    {
-      content: "Ripple",
-      value: "RIPPLE",
-    },
-  ];
-
-*/
-
+let priceChart; // Declare a variable to store the chart instance
+let current_selectedCoin; // the crypto currency was selected
 
 
 $(() => {
   fetchData();
 });
 
+const getTopCoinsByUSDValue = async () => {
+  try {
+    // Fetching the market data for coins sorted by market cap (a proxy to get popular/high-value coins)
+    const marketData = await makeApiRequest('coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1');
+    // Sorting the fetched coins by their current price in USD in descending order
+    const sortedByValue = marketData.sort((a, b) => b.current_price - a.current_price);
+    // Slicing the array to get the top 10 coins
+    return sortedByValue.slice(0, 10);
+    
+  } catch (error) {
+    console.error('Error in getTopCoinsByUSDValue:', error);
+    throw error;
+  }
+};
+
+const getDateAtIndex = (index) => {
+  // Get the current year
+  var currentYear = new Date().getFullYear();
+
+  // Create a new date object for January 1st of the current year
+  var currentDate = new Date(currentYear, 0, 1);
+
+  // Add the index number of days to the current date
+  currentDate.setDate(currentDate.getDate() + index);
+
+  return currentDate;
+};
+
 const fetchData = async () => {
   try {
-    cryptoOptions = await getCoinsList();
+    cryptoOptions = await getTopCoinsByUSDValue();
     renderHomePage();  // load the page when all data above is loaded from the API
   } catch (e) {
     console.error(e);
@@ -56,28 +66,32 @@ const makeApiRequest = async (endpoint) => {
   }
 };
 
-const getCoinsList = async () => { // Make it an async function to use 'await'
-  try {
-    const coinsList = await makeApiRequest('coins/list?include_platform=false');
-    return coinsList.slice(50, 90); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ sort @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  } catch (error) {
-    console.error('Error:', error);
-    throw error;
-  }
-};
-
-const getCoinData = async (id) => { // Make it an async function to use 'await'
+const getCoinCardData = async (id) => { // Make it an async function to use 'await'
   try {
     query = "simple/price?ids=" + id + "&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=false&precision=4";
-    
-    const coinData = await makeApiRequest(query);
-    return coinData;
+    const coinCardData = await makeApiRequest(query);
+    //debugger;
+    return coinCardData;
   } catch (error) {
     console.error('Error:', error);
     throw error;
   }
 };
 
+const getCoinChartData = async(id) =>{
+  try {
+    query = "coins/" + id + "/market_chart?vs_currency=usd&days=365&interval=daily&precision=5";
+    const coinChartData = await makeApiRequest(query);
+    return coinChartData;
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+};
+
+const extractSecondElement = (subList) => {
+  return subList[1];
+};
 
 const updateCards = (coin_data, coinID) => {
 
@@ -114,6 +128,111 @@ const cryptoDataCards = [
       class: "usd_24h_change"
     }
   ];
+
+   // Function to update the graph
+   const updateGraphs = (chartData) => {
+
+    const days = [];
+    for (var i = 0 ; i<365 ; i++){
+      days.push(getDateAtIndex(i));
+    }
+    const chartPrices = chartData.prices.map(extractSecondElement);
+    //const chartMarketCap = chartData.market_caps.map(extractSecondElement);
+
+      // Check if dark mode is enabled
+      const isDarkMode = document.documentElement.classList.contains("dark");
+      // Define background color based on dark mode
+      const chartBackgroundColor = isDarkMode ? "gray" : "gray";
+      const chartLineColor = isDarkMode ? "white" : "black"; // Set the line color based on dark mode
+      
+      // Check if the chart is already initialized
+      if (priceChart) {
+        priceChart.data.datasets[0].data = chartPrices;
+        priceChart.data.datasets[0].backgroundColor = chartBackgroundColor;
+        //priceChart.data.datasets[1].data = chartMarketCap;
+        //priceChart.data.datasets[1].backgroundColor = chartBackgroundColor;
+        
+        // Update the legend label color
+        priceChart.options.plugins.legend.labels.color = isDarkMode
+          ? "white"
+          : "black";
+  
+        // Update the grid and ticks colors
+        priceChart.options.scales.x.grid.color = isDarkMode
+          ? "rgba(255, 255, 255, 0.1)"
+          : "rgba(0, 0, 0, 0.1)";
+        priceChart.options.scales.x.ticks.color = isDarkMode ? "white" : "black";
+        priceChart.options.scales.y.grid.color = isDarkMode
+          ? "rgba(255, 255, 255, 0.1)"
+          : "rgba(0, 0, 0, 0.1)";
+        priceChart.options.scales.y.ticks.color = isDarkMode ? "white" : "black";
+        priceChart.data.datasets[0].borderColor = chartLineColor;
+  
+        // Update the chart
+        priceChart.update();
+      } else {
+        // Initialize a new chart
+        const priceChartCanvas = document.getElementById("line-chart");
+        priceChart = new Chart(priceChartCanvas, {
+          type: "line",
+          data: {
+            labels: days,
+            datasets: [
+              {
+                data: chartPrices,
+                borderWidth: 2,
+                backgroundColor: chartBackgroundColor,
+                borderColor: "white",
+                pointRadius:0,
+                pointHoverRadius:10,
+                label:"Prices in USD"
+              },
+              /*
+              {
+                data: chartMarketCap,
+                borderWidth: 2,
+                backgroundColor: chartBackgroundColor,
+                borderColor: "red",
+                pointRadius:0,
+                pointHoverRadius:10,
+                label:"Market cap in USD"
+              },*/
+            ]
+
+          },
+          options: {
+            plugins: {
+              legend: {
+                labels: {
+                  color: "white",
+                },
+              },
+              
+            },
+            scales: {
+              x: {
+                display:false,
+                grid: {
+                  color: "rgba(255, 255, 255, 0.1)",
+                },
+                ticks: {
+                  color: "white",
+                },
+              },
+              y: {
+                beginAtZero: true,
+                grid: {
+                  color: "rgba(255, 255, 255, 0.1)",
+                },
+                ticks: {
+                  color: "white",
+                },
+              },
+            },
+          },
+        });
+      }
+  };
   
   
   const renderCryptoSelector = () => {
@@ -131,17 +250,11 @@ const cryptoDataCards = [
         let selectedIndex = event.target.options.selectedIndex;
         let selectedCoinID = event.target.options[selectedIndex].id;
 
-
-        getCoinData(selectedCoinID)
-        .then(coin_data => {
-          updateCards(coin_data, selectedCoinID);
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
+        getCoinData(selectedCoinID);
 
 
-        updateGraphs(selectedCoinID);
+
+       // updateGraphs(selectedCoinID);
     };
     cryptoOptions.forEach((coin) => {
       const optionEl = createElement("option", coin.symbol, [
@@ -167,7 +280,26 @@ const cryptoDataCards = [
     const selectContainer = document.querySelector("#tab-home");
     selectContainer.prepend(selectEl);
   };
-  
+
+  const getCoinData = (id) => {
+    getCoinCardData(id)
+    .then((card) => {
+      updateCards(card, id);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+    getCoinChartData(id)
+    .then((chart) => {
+      updateGraphs(chart);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  };
+
+
   const renderCryptoDataCards = () => {
     cryptoDataCards.forEach((card, index) => {
       const cardEl = createElement("div", "", [
@@ -242,6 +374,9 @@ const cryptoDataCards = [
         value: "w-full",
       },
     ]);
+
+
+    
   
     chartContainer.appendChild(canvasEl);
     homePage.appendChild(h2El);
@@ -251,6 +386,7 @@ const cryptoDataCards = [
   
     renderCryptoSelector();
     renderCryptoDataCards();
+    getCoinData(cryptoOptions[0].id);
   };
   
   

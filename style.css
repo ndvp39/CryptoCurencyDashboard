@@ -63,8 +63,10 @@ h2{
 } 
 
 #chart-container {
-  width: 100%; /* Make the chart container full width of its parent */
+  width: 75%; /* Make the chart container full width of its parent */
   margin-top: 20px; /* Adjust margin as needed */
+  margin-left: auto; /* Center the container */
+  margin-right: auto; /* Center the container */
 }
 
 img{
@@ -118,7 +120,7 @@ img{
 }
 
 #cards>.card {
-  flex-basis: calc(50% - 1rem);
+  flex-basis: calc(35% - 1rem);
 }
 
 #tab-About{
