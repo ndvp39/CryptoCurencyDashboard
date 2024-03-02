@@ -249,7 +249,7 @@ const cryptoDataCards = [
     selectEl.onchange = (event) => {
         let selectedIndex = event.target.options.selectedIndex;
         let selectedCoinID = event.target.options[selectedIndex].id;
-
+        current_selectedCoin = event.target.options[selectedIndex];
         getCoinData(selectedCoinID);
 
 
@@ -383,10 +383,11 @@ const cryptoDataCards = [
     homePage.appendChild(pEl);
     homePage.appendChild(cardsEl);
     homePage.appendChild(chartContainer);
-  
+    
     renderCryptoSelector();
     renderCryptoDataCards();
     getCoinData(cryptoOptions[0].id);
+    current_selectedCoin = cryptoOptions[0];
   };
   
   
