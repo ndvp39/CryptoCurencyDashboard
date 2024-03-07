@@ -1,32 +1,63 @@
 // Array of news items
-const newsArray = [
-    {
-        title: "Cryptocasinos are evolving worryingly fast - how to get to grips with them",
-        link: "https://theconversation.com/cryptocasinos-are-evolving-worryingly-fast-heres-how-to-get-to-grips-with-them-205039"
-    },
-    {
-        title: "Are NFTs really dead and buried? All signs point to yes",
-        link: "https://theconversation.com/are-nfts-really-dead-and-buried-all-signs-point-to-yes-214145"
-    },
-    {
-        title: "Bitcoin has shot up 50% since the new year, why new lows are probably still ahead?",
-        link: "https://theconversation.com/bitcoin-has-shot-up-50-since-the-new-year-but-heres-why-new-lows-are-probably-still-ahead-198682"
-    }
-];
+let newsArray = [];
+
+// Fetch cryptoInfo from the server
+fetch('http://localhost:3000/News')
+.then(response => response.json())
+.then(data => {
+    
+    // Assuming 'data' is your array of news categories
+    data.forEach(category => {
+
+        Object.keys(category).forEach(categoryName => {
+            if(categoryName != "_id"){
+                newsArray.push({
+                    title: categoryName,
+                    link: null
+                })
+            }
+            if (Array.isArray(category[categoryName])) {
+            category[categoryName].forEach(newsItem => {
+                newsArray.push({
+                    title: newsItem.title,
+                    link: newsItem.link
+                })
+            })
+        }
+        })
+
+    });
+
+    renderNewsPage();
+
+})
+.catch(error => console.error('Error fetching data:', error));
+
+
+
+
 
 
 const renderNews = (text, link) => {
 
     const News_div = createElement("div", "");
+    let link_News;
 
-    const title_News = createElement("h3", text);
+    const title_News = createElement("h3", "\n" + text);
     title_News.classList = "text-xl font-semibold";
 
-    const link_News = createElement("a", "Read More", [{name: "href", value: link}]);
-    link_News.classList = "text-blue-500 font-bold";
+    if(link == null){
+        title_News.classList= "text-xl font-bold text-blue-500";
+    }
+    else{
+        link_News = createElement("a", "Read More", [{name: "href", value: link}]);
+        link_News.classList = "text-blue-500 font-bold";
+    }
 
     News_div.appendChild(title_News);
-    News_div.appendChild(link_News);
+    if(link != null){
+        News_div.appendChild(link_News);
+    }
 
     return News_div;
 }
@@ -52,9 +83,6 @@ const renderNewsPage = () => {
     newsArray.forEach(newsItem => {
         NewsList.appendChild(renderNews(newsItem.title, newsItem.link));
     });
-
     NewsPage.appendChild(NewsList);
 
 }
-
-renderNewsPage();
