@@ -22,7 +22,7 @@ const renderContactForm = () => {
     contact_form_div.classList = "contact-form";
     const contact_form_title = createElement("h2", "Send us a Message");
 
-    const contact_form = createElement("form", "", [ {name: "action", method: "#"}, {name: "method", method: "post"} ]);
+    const contact_form = createElement("form", "");
     const name_title = createElement("label", "Your Name:", [ {name: "for", value: "name"} ]);
     const name_input = createElement("input", "", [ {name: "type", value: "text"},
                                                     {name: "id", value: "name"},
@@ -49,6 +49,14 @@ const renderContactForm = () => {
         { name: "style", value: "border: 1px solid black;" }
     ]);
     submit_btn.classList.add("px-4", "py-2", "rounded");
+    submit_btn.onclick = (event) => {
+        if (!validateForm(name_input.value, email_input.value, msg_input.value)) {
+            alert("Please fill out all fields before submitting.");
+            return;
+        }
+        event.preventDefault();
+        onClickSendMessage(name_input.value, email_input.value, msg_input.value);
+    }
 
     const tabPage = document.querySelector("#tab-Contact");
     
@@ -78,5 +86,36 @@ const renderContactPage = () => {
     renderContactDetails();
     renderContactForm();
 }
+
+const onClickSendMessage = async (name, email, msg) => {
+    console.log(name, email, msg);
+  
+    try {
+      const response = await fetch('http://localhost:3000/CryptoInfo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, message: msg }),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.message); // Log the response message from the server
+      } else {
+        console.error('Failed to insert data into the database');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  
+    alert(`${name}, thank you for sending us a message!`);
+  };
+  
+
+const validateForm = (name, email, message) => {
+    return name.trim() !== '' && email.trim() !== '' && message.trim() !== '';
+};
+
 
 renderContactPage();
