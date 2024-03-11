@@ -277,7 +277,7 @@ const cryptoDataCards = [
 
     
   
-    const selectContainer = document.querySelector("#tab-home");
+    const selectContainer = document.querySelector("#tab-Home");
     selectContainer.prepend(selectEl);
   };
 
@@ -330,7 +330,7 @@ const cryptoDataCards = [
   };
   
   const renderHomePage = () => {
-    const homePage = document.querySelector("#tab-home");
+    const homePage = document.querySelector("#tab-Home");
     homePage.classList = "tab-content";
   
     const h2El = createElement("h2", "Web Crypto project", [

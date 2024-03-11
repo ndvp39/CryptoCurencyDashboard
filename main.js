@@ -15,9 +15,9 @@
   // view
   const setView = (v, tabId) => {
     document.querySelector("#tab_title").innerText = v;
-    var randomColor = Math.floor(Math.random() * 16777215).toString(16);
+    // var randomColor = Math.floor(Math.random() * 16777215).toString(16);
     document.querySelector("#tab_title").style.borderBottom =
-      `10px solid #${randomColor}`;
+      `10px solid #FFD369`;
   
     // show only the tab that was clicked
     var tabContents = document.getElementsByClassName("tab-content");
