@@ -1,12 +1,12 @@
-const tabs = ["home", "About", "Contact", "News", "FAQ"];
+const tabs = ["Home", "About", "Contact", "News", "FAQ"];
 
 const setUpTabTitle = () => {
   const tab_title_div = createElement("div", "");
   tab_title_div.classList = "py-4";
 
   const tab_title = createElement("h1", "Home", [{name: "id", value: "tab_title"}]);
-  tab_title.classList = "text-3xl border-b-[10px] border-blue-300";
-
+  tab_title.classList = "text-3xl border-b-[10px] border-indigo-500";
+  tab_title.style.borderBottom = `10px solid #FFD369`;
   tab_title_div.appendChild(tab_title);
 
   const mainDiv = document.querySelector("#mainDiv");
@@ -24,7 +24,7 @@ const renderDesktopHeader = () => {
   tabs.forEach((tab) => {
     const tabButton = createElement("button", tab);
     tabButton.onclick = () => setView(tab, `tab-${tab}`);
-
+    tabButton.classList ="third";
     desktopMenu.appendChild(tabButton);
   });
 
@@ -36,7 +36,7 @@ const renderMobileHeader = () => {
   const ddMenu = createElement("div", "", [
     {
       name: "class",
-      value: "absolute top-[56px] left-0 bg-blue-300 p-3 hidden w-full z-10",
+      value: "absolute top-[56px] left-0 bg-393E46 p-3 hidden w-full z-10",
     },
     { name: "id", value: "ddMenu" },
   ]);
@@ -83,9 +83,9 @@ const renderToggleButton = () => {
   ]);
 
   containerEl.innerHTML = `
-    <img src="https://cdn3.iconfinder.com/data/icons/basic-ui-102/32/Basic_UI__Night_Mode-512.png"
+    <img src="./icons/darkmode.png"
         alt="Dark Mode" class="dark:hidden block" onclick="modeChange()">
-    <img src="https://cdn3.iconfinder.com/data/icons/basic-ui-102/32/Basic_UI__Night_Mode-512.png"
+    <img src="./icons/lightmode.png"
         alt="Light Mode" class="hidden dark:block" onclick="modeChange()">
  `;
 
@@ -109,7 +109,7 @@ const renderHeader = () => {
     { name: "id", value: "header" },
     {
       name: "class",
-      value: "bg-blue-700 dark:bg-blue-500 text-white p-4 flex justify-between",
+      value: "bg-secondary text-white p-4 flex justify-between",
     },
   ]);
 
